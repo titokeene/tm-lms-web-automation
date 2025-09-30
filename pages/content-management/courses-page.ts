@@ -59,7 +59,16 @@ export class CoursesPage {
     // }
 
     async assertCoursesPage() {
-        await expect(this.coursesHeader).toBeVisible();
         await expect(this.page).toHaveURL(process.env.TESTING_ENV! + paths.sa_courses);
+        await expect(this.coursesHeader).toBeVisible();
+        await expect(this.createCourseBtn).toBeVisible();
+        await expect(this.searchCourse).toBeVisible();
+        await expect(this.allStatusFilter).toBeVisible();
+        // await expect(this.publishedStatusFilter).toBeVisible();
+        // await expect(this.draftStatusFilter).toBeVisible();
+        await expect(this.exportBtn).toBeVisible();
+        await expect(this.nameColumn).toBeVisible();
+        await expect(this.publishStatusColumn).toBeVisible();
+        await expect(this.actionColumn).toBeVisible(); 
     }
 }
