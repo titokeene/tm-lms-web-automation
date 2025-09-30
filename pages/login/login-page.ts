@@ -3,9 +3,14 @@ import { paths } from "../../variables/paths";
 
 export class LoginPage {
     readonly page: Page;
+    readonly tmLogo: Locator;
     readonly loginHeader: Locator;
+    readonly emailLabel: Locator;
     readonly emailInput: Locator;
+    readonly passwordLabel: Locator;
     readonly passwordInput: Locator;
+    // readonly hidePW: Locator;
+    readonly forgotPassword: Locator;
     readonly loginButton: Locator;
     readonly invalidCredentialsToastMessage: Locator;
 
@@ -16,21 +21,36 @@ export class LoginPage {
     constructor(page: Page) {
         this.page = page;
 
+        this.tmLogo = page.getByRole("img", {
+            name: "Tax Maverick LMS",
+        });
         this.loginHeader = page.getByRole("heading", {
-            name: "Sign in to Tax Maverick LMS",
+            name: "Welcome back to TM LMS",
+        });
+        this.emailLabel = page.getByText('Email', { 
+            exact: true 
         });
         this.emailInput = page.getByRole("textbox", {
-            name: "Email Address"
+            name: "Email"
         });
+        this.passwordLabel = page.getByText('Password', { 
+            exact: true 
+        });
+        // this.hidePW = page.getByRole('button').filter({ 
+        //     hasText: /^$/ 
+        // });
         this.passwordInput = page.getByRole("textbox", {
-            name: "Password"
+            name: "Enter your password",      
+        });
+        this.forgotPassword = page.getByRole("button", {
+            name: "Forgot your password?"
         });
         this.loginButton = page.getByRole("button", {
-            name: "Sign in"
+            name: "Login"
         });
-        this.invalidCredentialsToastMessage = page.getByText(
-            "Invalid login credentials"
-        );
+        this.invalidCredentialsToastMessage = page.locator('div').filter({ 
+            hasText: 'Invalid email or password' 
+        }).nth(3)
     }
 
     async goto() {
@@ -47,9 +67,13 @@ export class LoginPage {
 
         //Usage of For Loop
         for (const element of [
+            this.tmLogo,
             this.loginHeader,
+            this.emailLabel,
             this.emailInput,
+            this.passwordLabel,
             this.passwordInput,
+            this.forgotPassword,
             this.loginButton]) {
             await expect(element).toBeVisible();
         }
