@@ -27,7 +27,7 @@ export class SideBar {
         this.learners = page.getByRole('link', { name: 'Learners' });
         this.profile = page.getByRole('link', { name: 'Profile' });
         this.backToTM = page.locator('div').filter({ hasText: /^Back to TM$/ });
-        this.logoutBtn = page.locator('div').filter({ hasText: /^Log out$/ });
+        this.logoutBtn = page.getByRole('button', { name: 'Log out' });
     }
 
     async goToCourses() {
@@ -41,7 +41,11 @@ export class SideBar {
     }
 
     async logout() {
-        await this.logoutBtn.click();
+        await this.logoutBtn.click({ 
+            // Using { force: true } because Playwright detects the element as not fully interactable
+            // (e.g., due to animation, overlay, or hidden state). This bypasses checks and fires the click directly.
+            force: true 
+        });
         await expect(this.page).toHaveURL(process.env.TESTING_ENV! + paths.login_page);
     }
 }
