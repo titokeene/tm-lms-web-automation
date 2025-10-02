@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 
 //Pages
 import { LoginPage } from '../../pages/login/login-page';
-import { DashboardPage } from '../../pages/content-management/dashboard-page';
+import { CoursesPage } from '../../pages/content-management/courses-page';
 
 import { paths } from '../../variables/paths';
 
@@ -25,15 +25,16 @@ test("Login with valid credentials + Logout", async ({ page }) => {
 
     //Initialize pages
     const validLogin = new LoginPage(page);
-    const dashboardPage = new DashboardPage(page);
     const sideBar = new SideBar(page);
+    const coursesPage = new CoursesPage(page);
 
     await validLogin.login(
         adminCredentials.EMAIL,
         adminCredentials.PASSWORD
     );
-    await dashboardPage.assertElements();
-    await expect(page).toHaveURL(process.env.TESTING_ENV! + paths.sa_dashboard);
+
+    await coursesPage.assertCoursesPage();
+    await expect(page).toHaveURL(process.env.TESTING_ENV! + paths.sa_courses);
     await sideBar.logout();
 });
 
