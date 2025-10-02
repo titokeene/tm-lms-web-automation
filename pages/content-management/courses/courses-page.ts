@@ -1,5 +1,5 @@
 import { expect, type Locator, type Page } from "@playwright/test";
-import { paths } from "../../variables/paths";
+import { paths } from "../../../variables/paths";
 
 export class CoursesPage {
     readonly page: Page;
