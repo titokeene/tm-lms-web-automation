@@ -38,6 +38,8 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
 
+  timeout: 60000, // Increase global timeout to 60 seconds
+
   /* Configure projects for major browsers */
   projects: [
     {

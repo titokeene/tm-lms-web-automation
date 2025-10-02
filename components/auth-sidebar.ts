@@ -5,7 +5,7 @@ export class SideBar {
     readonly page: Page;
     readonly lmsLogo: Locator;
     readonly contentMngmt: Locator;
-    readonly dashboard: Locator;
+    // readonly dashboard: Locator;
     readonly coursesBtn: Locator;
     readonly quizzes: Locator;
     readonly userMngmt: Locator;
@@ -19,7 +19,7 @@ export class SideBar {
         this.page = page;
         this.lmsLogo = page.getByRole('img', { name: 'TM' });
         this.contentMngmt = page.getByText('Content Management');
-        this.dashboard = page.getByRole('link', { name: 'Dashboard' });
+        // this.dashboard = page.getByRole('link', { name: 'Dashboard' });
         this.coursesBtn = page.getByRole('link', { name: 'Courses' });
         this.quizzes = page.getByRole('link', { name: 'Quizzes' });
         this.userMngmt = page.getByText('User Management');

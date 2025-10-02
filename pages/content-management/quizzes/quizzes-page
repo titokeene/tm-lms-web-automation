@@ -1,0 +1,54 @@
+import { expect, type Locator, type Page } from "@playwright/test";
+import { paths } from "../../../variables/paths";
+
+export class CoursesPage {
+    readonly page: Page;
+    readonly quizzesHeader: Locator;
+    readonly createQuizBtn: Locator;
+    readonly searchQuiz: Locator;
+    readonly nameColumn: Locator;
+    readonly questionsColumn: Locator;
+    readonly usedInColumn: Locator;
+
+    constructor(page: Page) {
+        this.page = page;
+
+        this.quizzesHeader = page.getByRole("heading", {
+            name: "All Quizzes",
+        });
+        this.createQuizBtn = page.getByRole('button', { 
+            name: 'Create Quiz' 
+        });
+        this.searchQuiz = page.getByRole('textbox', { 
+            name: 'Search for quizzes' 
+        });
+        this.nameColumn = page.getByRole('cell', { 
+            name: 'Name' 
+        });
+        this.questionsColumn = page.getByRole('cell', { 
+            name: 'Questions' 
+        });
+        this.usedInColumn = page.getByRole('cell', { 
+            name: 'Used In' 
+        });
+
+        //To Add:
+        // Add locators for the following:
+        // - Empty States
+    }
+
+    // async goto() {
+    //     await this.page.goto(process.env.TESTING_ENV! + paths.sa_dashboard); //Only navigated to base URL, it should automatically redirect to sign in page
+    //     await expect(this.page).toHaveURL(process.env.TESTING_ENV! + paths.sa_dashboard);
+    // }
+
+    async assertQuizzesPage() {
+        await expect(this.page).toHaveURL(process.env.TESTING_ENV! + paths.sa_courses);
+        await expect(this.quizzesHeader).toBeVisible();
+        await expect(this.createQuizBtn).toBeVisible();
+        await expect(this.searchQuiz).toBeVisible();
+        await expect(this.nameColumn).toBeVisible();
+        await expect(this.questionsColumn).toBeVisible();
+        await expect(this.usedInColumn).toBeVisible(); 
+    }
+}
